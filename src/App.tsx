@@ -147,6 +147,9 @@ export default function App() {
         </div>
       </OverlayPanel>
 
+
+
+{/* following section is a section for my contact details, note that it is an ai generated section */}
       <div className="mt-12 p-8 bg-gradient-to-br from-gray-50 to-gray-100 border-t-2 border-gray-300">
         <div className="max-w-7xl mx-auto">
           <h3 className="text-xl font-bold text-gray-900 mb-6">Submitted by</h3>
