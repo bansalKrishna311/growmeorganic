@@ -146,6 +146,49 @@ export default function App() {
           </button>
         </div>
       </OverlayPanel>
+
+      <div className="mt-12 p-8 bg-gradient-to-br from-gray-50 to-gray-100 border-t-2 border-gray-300">
+        <div className="max-w-7xl mx-auto">
+          <h3 className="text-xl font-bold text-gray-900 mb-6">Submitted by</h3>
+          <div className="flex gap-20 text-sm">
+            <div className="flex flex-col gap-3">
+              <p className="text-lg font-semibold text-gray-900 mb-1">Krishna Bansal</p>
+              <div className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors">
+                <i className="pi pi-phone"></i>
+                <a href="tel:+919511834002" className="hover:underline">
+                  +91 9511834002
+                </a>
+              </div>
+              <div className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors">
+                <i className="pi pi-envelope"></i>
+                <a href="mailto:bansalkrishna311@gmail.com" className="hover:underline">
+                  bansalkrishna311@gmail.com
+                </a>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors">
+                <i className="pi pi-linkedin"></i>
+                <a href="https://www.linkedin.com/in/bansalkrishna311" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  linkedin.com/in/bansalkrishna311
+                </a>
+              </div>
+              <div className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors">
+                <i className="pi pi-github"></i>
+                <a href="https://github.com/bansalKrishna311/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  github.com/bansalKrishna311
+                </a>
+              </div>
+              <div className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors">
+                <i className="pi pi-box"></i>
+                <a href="https://github.com/bansalKrishna311/growmeorganic" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  Repository: growmeorganic
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
