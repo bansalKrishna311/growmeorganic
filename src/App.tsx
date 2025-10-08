@@ -22,6 +22,7 @@ export default function App() {
   const [totalRecords, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selectedArtworks, setSelectedArtworks] = useState<Artwork[]>([]);
+  const [rowsToSelect, setRowsToSelect] = useState<string>('');
 
   useEffect(() => {
     const loadArtworks = async () => {
@@ -51,6 +52,41 @@ export default function App() {
   const handlePage = (event: any) => {
     setPage(event.page + 1);
   };
+
+  const handleSubmit = async () => {
+    const count = parseInt(rowsToSelect);
+    if (isNaN(count) || count <= 0) return;
+
+    const selected: Artwork[] = [];
+    let remaining = count;
+    let currentPage = 1;
+
+    while (remaining > 0) {
+      try {
+        const response = await axios.get(
+          "https://api.artic.edu/api/v1/artworks",
+          {
+            params: { page: currentPage },
+          }
+        );
+
+        const pageData: Artwork[] = response.data.data;
+        const toSelect = Math.min(remaining, pageData.length);
+        selected.push(...pageData.slice(0, toSelect));
+        remaining -= toSelect;
+        currentPage++;
+
+        if (pageData.length < rowsPerPage) break;
+      } catch (error) {
+        console.error("Failed to load artworks for selection", error);
+        break;
+      }
+    }
+
+    setSelectedArtworks(selected);
+    op.current?.toggle();
+  };
+
   const op = useRef<any>(null);
   return (
     <>
@@ -93,12 +129,22 @@ export default function App() {
         <Column field="date_end" header="Date End" />
       </DataTable>
       <OverlayPanel ref={op}>
-        <img
-          src={
-            "https://primefaces.org/cdn/primereact/images/product/bamboo-watch.jpg"
-          }
-          alt="Bamboo Watch"
-        ></img>
+        <div className="flex flex-col gap-4 p-4">
+          <input
+            type="number"
+            placeholder="Select rows..."
+            className="border border-gray-300 rounded px-3 py-2 w-64"
+            min="0"
+            value={rowsToSelect}
+            onChange={(e) => setRowsToSelect(e.target.value)}
+          />
+          <button 
+            className="bg-white border border-gray-300 rounded px-6 py-2 self-end hover:bg-gray-50"
+            onClick={handleSubmit}
+          >
+            submit
+          </button>
+        </div>
       </OverlayPanel>
     </>
   );
