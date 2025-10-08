@@ -69,11 +69,16 @@ export default function App() {
       loading={loading}
       style={{ width: "100%" }}
     >
-      <Column 
-        selectionMode="multiple"
-      />
-      <Column 
-        header={<i className="pi pi-angle-down text-sm" onClick={() => { console.log("clicked"); }}></i>}
+      <Column selectionMode="multiple" />
+      <Column
+        header={
+          <i
+            className="pi pi-angle-down text-sm"
+            onClick={() => {
+              console.log("clicked");
+            }}
+          ></i>
+        }
         body={() => null}
         headerStyle={{ width: "3rem" }}
       />
