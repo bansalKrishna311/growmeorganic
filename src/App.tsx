@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { OverlayPanel } from "primereact/overlaypanel";
 
 type Artwork = {
   id: number;
@@ -50,44 +51,55 @@ export default function App() {
   const handlePage = (event: any) => {
     setPage(event.page + 1);
   };
-
+  const op = useRef<any>(null);
   return (
-    <DataTable
-      value={artworks}
-      selection={selectedArtworks}
-      onSelectionChange={(event: any) =>
-        setSelectedArtworks(event.value as Artwork[])
-      }
-      selectionMode="checkbox"
-      paginator
-      lazy
-      rows={rowsPerPage}
-      totalRecords={totalRecords}
-      first={(page - 1) * rowsPerPage}
-      onPage={handlePage}
-      dataKey="id"
-      loading={loading}
-      style={{ width: "100%" }}
-    >
-      <Column selectionMode="multiple" />
-      <Column
-        header={
-          <i
-            className="pi pi-angle-down text-sm"
-            onClick={() => {
-              console.log("clicked");
-            }}
-          ></i>
+    <>
+      <DataTable
+        value={artworks}
+        selection={selectedArtworks}
+        onSelectionChange={(event: any) =>
+          setSelectedArtworks(event.value as Artwork[])
         }
-        body={() => null}
-        headerStyle={{ width: "3rem" }}
-      />
-      <Column field="title" header="Title" />
-      <Column field="place_of_origin" header="Place of Origin" />
-      <Column field="artist_display" header="Artist" />
-      <Column field="inscriptions" header="Inscriptions" />
-      <Column field="date_start" header="Date Start" />
-      <Column field="date_end" header="Date End" />
-    </DataTable>
+        selectionMode="checkbox"
+        paginator
+        lazy
+        rows={rowsPerPage}
+        totalRecords={totalRecords}
+        first={(page - 1) * rowsPerPage}
+        onPage={handlePage}
+        dataKey="id"
+        loading={loading}
+        style={{ width: "100%" }}
+      >
+        <Column selectionMode="multiple" />
+        <Column
+          header={
+            <i
+              className="pi pi-angle-down text-sm"
+              onClick={(e) => {
+                op.current.toggle(e);
+              }}
+            ></i>
+          }
+          body={() => null}
+          headerStyle={{ width: "3rem" }}
+        />
+
+        <Column field="title" header="Title" />
+        <Column field="place_of_origin" header="Place of Origin" />
+        <Column field="artist_display" header="Artist" />
+        <Column field="inscriptions" header="Inscriptions" />
+        <Column field="date_start" header="Date Start" />
+        <Column field="date_end" header="Date End" />
+      </DataTable>
+      <OverlayPanel ref={op}>
+        <img
+          src={
+            "https://primefaces.org/cdn/primereact/images/product/bamboo-watch.jpg"
+          }
+          alt="Bamboo Watch"
+        ></img>
+      </OverlayPanel>
+    </>
   );
 }
